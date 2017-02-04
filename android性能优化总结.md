@@ -36,5 +36,9 @@
 ### 2、android 6.0开放了电量消耗相关的API
 
 
-参考链接：http://blog.csdn.net/column/details/itfootballprefermanc.html
+参考链接：
+
+http://blog.csdn.net/column/details/itfootballprefermanc.html
+
+http://www.cnblogs.com/yezhennan/archive/2016/04.html
    
