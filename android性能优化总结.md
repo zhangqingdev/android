@@ -94,4 +94,17 @@ http://www.cnblogs.com/yezhennan/archive/2016/04.html
     b.xml文件保护
 
 ### 2.代码保护
+
+
+# android热修复
+a.Dexposed（半成品）
+b.AndFix
+c.ClassLoader
+d.微信Tinker
+
+参考链接：
+      
+       https://github.com/dodola/HotFix
+       https://github.com/jasonross/Nuwa
+       https://github.com/bunnyblue/DroidFix
    
