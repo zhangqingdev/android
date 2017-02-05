@@ -41,4 +41,56 @@
 http://blog.csdn.net/column/details/itfootballprefermanc.html
 
 http://www.cnblogs.com/yezhennan/archive/2016/04.html
+
+
+# android插件话
+ ### 1.mutltidex  
+     mutltidex 基本原理
+     multiDex的基本原理是把通过DexFile来加载second dex，并存放在BaseDexClassLoader的DexPathList中。  
+     存在的问题
+     a.如果second.dex过大的话在应用启动的时候可能会引起anr
+     b.采用multidex方案的应用需要申请一个很大的内存，在运行时可能导致程序崩溃，主要ß是由于android系统Dalvik linearAlloc的bug导致的,
+       在android 4.0已经增加了linearAlloc的内存大小，但是依然有崩溃的可能(4.0以下的机型基本不用考虑了，目前4.0以下的用户量在1%-2%左右而且后续会越来越少)
+       在android 5.0版本没有这个问题  因为android 5.0的系统虚拟机由dalvik切换成art虚拟机
+       在ART下MultiDex是不存在这个问题的，这主要是因为ART下采用Ahead-of-time (AOT) compilation技术，系统在APK的安装过程中会使用自带的dex2oat工具对APK中可用的DEX文件进行编译并生成一个可在本地机器上运行的文件，这样能提高应用的启动速度
+    采用mutltidex分包方案遇到的问题 提出解决方案
+     a.加载dex放到一个异步线程中去做，这样可以提高冷启动的速度，同时还可以减少冷启动时的anr
+     b.对于linearAlloc的限制，人工对DEX的拆分进行干预，使每个DEX的大小在一定的合理范围内，这样就减少触发Dalvik linearAlloc的缺陷和限制
+
+### 2.根据业务场景拆分出各个业务线，各业务线独立dex或apk
+    这种插件话的方案主要需要解决一下几个问题：
+    1.dex如何动态加载
+    2.插件中资源使用问题以及资源id冲突问题
+    3.组件生命周期如何处理
+    4.公共依赖
+    
+    a.插件话方案一：（这种方案用来开发简单的sdk基本可以满足使用场景，这种方案是插件话的比较早的一直方案）
+      1.使用代理ProxyActivity  ProxyService完成组件的生命周期
+      2.通过反射addAssetPath解决R资源的访问，资源加载到AssetManager，通过AssetManager创建Resources对象
+      3. DexClassLoader
+    b.插件话方案二：
+      1.宿主添加占坑的Activity 占坑的Service
+      2.Hook AMS PMS
+
+  参考链接：
+          http://blog.csdn.net/huangkun125/
+
+          http://www.cnblogs.com/twlqx/p/4717035.html
+
+          https://github.com/Qihoo360/DroidPlugin
+
+          https://github.com/wequick/Small
+
+          https://github.com/bunnyblue/ACDD
+
+          https://github.com/CtripMobile/DynamicAPK
+
+      
+# android加固
+
+### 1.资源保护
+    a.mainfest.xml转换axml保护
+    b.xml文件保护
+
+### 2.代码保护
    
