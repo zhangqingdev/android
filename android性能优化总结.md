@@ -44,6 +44,7 @@ http://www.cnblogs.com/yezhennan/archive/2016/04.html
 
 
 # android插件话
+
  ### 1.mutltidex  
      mutltidex 基本原理
      multiDex的基本原理是把通过DexFile来加载second dex，并存放在BaseDexClassLoader的DexPathList中。  
